@@ -24,8 +24,7 @@ navigator.usb.addEventListener('disconnect', event => {
 async function talkToArduino() {
     try {
         navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
-            filters: []
+            acceptAllDevices: true
         })
             .then(device => {
             document.getElementById('targetA').innerHTML = 'Received: ' + device.name;
