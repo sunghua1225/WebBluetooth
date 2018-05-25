@@ -25,7 +25,7 @@ async function talkToArduino() {
     try {
         navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
-            optionalServices: ['usb_charger']
+            filters: []
         })
             .then(device => {
             document.getElementById('targetA').innerHTML = 'Received: ' + device.name;
