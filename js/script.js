@@ -7,7 +7,8 @@
 // };
 
 document.getElementById('arduinoButton').onclick = function (event) {
-    talkToArduino();
+    //talkToArduino();
+    checkBattery();
 };
 /*
 navigator.usb.addEventListener('connect', event => {
@@ -36,3 +37,33 @@ async function talkToArduino() {
         document.getElementById('targetB').innerHTML = error;
     }
 }
+
+function checkBattery() {
+    navigator.bluetooth.requestDevice(
+        {filters: [{services: ['battery_service']}]})
+        .then(device => {
+            document.getElementById('targetB').innerHTML = 'Connecting to GATT Server...';
+            return device.gatt.connect();
+        })
+        .then(server => {
+            document.getElementById('targetB').innerHTML = 'Getting Battery Service...';
+            return server.getPrimaryService('battery_service');
+        })
+        .then(service => {
+            document.getElementById('targetB').innerHTML = 'Getting Battery Level Characteristic...';
+            return service.getCharacteristic('battery_level');
+        })
+        .then(characteristic => {
+            document.getElementById('targetB').innerHTML = 'Reading Battery Level...';
+            return characteristic.readValue();
+        })
+        .then(value => {
+            let batteryLevel = value.getUint8(0);
+            document.getElementById('targetB').innerHTML = '> Battery Level is ' + batteryLevel + '%';
+        })
+        .catch(error => {
+            document.getElementById('targetB').innerHTML = 'Argh! ' + error;
+        }
+    );
+}
+
