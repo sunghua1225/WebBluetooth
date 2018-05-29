@@ -7,8 +7,8 @@
 // };
 
 document.getElementById('arduinoButton').onclick = function (event) {
-    //talkToArduino();
-    checkBattery();
+    talkToArduino();
+    //checkBattery();
 };
 /*
 navigator.usb.addEventListener('connect', event => {
