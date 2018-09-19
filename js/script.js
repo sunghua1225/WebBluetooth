@@ -34,7 +34,7 @@ async function talkToArduino() {
         //  ],
         //  optionalServices: ['battery_service']
         //  // OR: acceptAllDevices: true,
-        }
+        //}
         let options = {
           //filters: [
           //  {services: [0xABCD]},
