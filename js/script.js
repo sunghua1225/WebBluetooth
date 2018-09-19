@@ -24,13 +24,20 @@ navigator.usb.addEventListener('disconnect', event => {
 
 async function talkToArduino() {
     try {
+        //let options = {
+        //  filters: [
+        //    {services: ['heart_rate']},
+        //    {services: [0x1802, 0x1803]},
+        //    {services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']},
+        //    {name: 'OurService'},
+        //    {namePrefix: 'Prefix'}
+        //  ],
+        //  optionalServices: ['battery_service']
+        //  // OR: acceptAllDevices: true,
+        }
         let options = {
           filters: [
-            {services: ['heart_rate']},
-            {services: [0x1802, 0x1803]},
-            {services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']},
             {name: 'OurService'},
-            {namePrefix: 'Prefix'}
           ],
           optionalServices: ['battery_service']
           // OR: acceptAllDevices: true,
