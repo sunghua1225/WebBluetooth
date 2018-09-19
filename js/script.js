@@ -39,10 +39,8 @@ async function talkToArduino() {
           filters: [
             {services: [0xABCD]},
             {name: 'OurService'}
-          ],
-          optionalServices: ['battery_service']
-          // Or: acceptAllDevices: true
-        }
+          ]
+         }
         
         //navigator.bluetooth.requestDevice({
         //    acceptAllDevices: true,
