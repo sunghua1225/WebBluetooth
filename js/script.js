@@ -37,7 +37,8 @@ async function talkToArduino() {
         }
         let options = {
           filters: [
-            {name: 'OurService'},
+            {services: [0xABCD]},
+            {name: 'OurService'}
           ],
           optionalServices: ['battery_service']
           // OR: acceptAllDevices: true,
