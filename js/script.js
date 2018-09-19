@@ -36,18 +36,19 @@ async function talkToArduino() {
         //  // OR: acceptAllDevices: true,
         //}
         let options = {
-          //filters: [
-          //  {services: [0xABCD]},
-          //  {name: 'OurService'}
-          //],
-          //optionalServices: ['battery_service']
-          acceptAllDevices: true
+          filters: [
+            {services: [0xABCD]},
+            {name: 'OurService'}
+          ],
+          optionalServices: ['battery_service']
+          // OR: acceptAllDevices: true
         }
         
-        navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
-            optionalServices: ['battery_service']
-        })
+        //navigator.bluetooth.requestDevice({
+        //    acceptAllDevices: true,
+        //    optionalServices: ['battery_service']
+        //})
+        navigator.bluetooth.requestDevice(options)
         .then(device => {
             document.getElementById('targetA').innerHTML = 'Received: ' + device.name;
         })
