@@ -1,4 +1,4 @@
-// document.getElementById('nRFButton').onclick = function (event) {
+// document.getElementById('connect').onclick = function (event) {
 //      if (navigator.bluetooth) {
 //         talkToNRF();
 //     } else {
@@ -6,7 +6,7 @@
 //     }
 // };
 
-document.getElementById('nRFButton').onclick = function (event) {
+document.getElementById('connect').onclick = function (event) {
     //talkToNRF();
     checkCharacteristic();
 };
