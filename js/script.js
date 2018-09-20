@@ -1,14 +1,14 @@
-// document.getElementById('arduinoButton').onclick = function (event) {
+// document.getElementById('nRFButton').onclick = function (event) {
 //      if (navigator.bluetooth) {
-//         talkToArduino();
+//         talkToNRF();
 //     } else {
 //         alert('WebBluetooth not supported.');
 //     }
 // };
 
-document.getElementById('arduinoButton').onclick = function (event) {
-    talkToArduino();
-    //checkBattery();
+document.getElementById('nRFButton').onclick = function (event) {
+    //talkToNRF();
+    checkCharacteristic();
 };
 /*
 navigator.usb.addEventListener('connect', event => {
@@ -22,7 +22,7 @@ navigator.usb.addEventListener('disconnect', event => {
 });
 */
 
-async function talkToArduino() {
+async function talkToNRF() {
     try {
         //let options = {
         //  filters: [
@@ -58,28 +58,34 @@ async function talkToArduino() {
     }
 }
 
-function checkBattery() {
-    navigator.bluetooth.requestDevice(
-        {filters: [{services: ['battery_service']}]})
+function checkCharacteristic() {
+        let options = {
+          filters: [
+            {services: [0xF00D]},
+            {name: 'OurCharacteristic'}
+          ]
+         }
+        
+        navigator.bluetooth.requestDevice(options)
         .then(device => {
             document.getElementById('targetB').innerHTML = 'Connecting to GATT Server...';
             return device.gatt.connect();
         })
         .then(server => {
-            document.getElementById('targetB').innerHTML = 'Getting Battery Service...';
+            document.getElementById('targetB').innerHTML += 'Getting Battery Service...';
             return server.getPrimaryService('battery_service');
         })
         .then(service => {
-            document.getElementById('targetB').innerHTML = 'Getting Battery Level Characteristic...';
+            document.getElementById('targetB').innerHTML += 'Getting Battery Level Characteristic...';
             return service.getCharacteristic('battery_level');
         })
         .then(characteristic => {
-            document.getElementById('targetB').innerHTML = 'Reading Battery Level...';
+            document.getElementById('targetB').innerHTML += 'Reading Battery Level...';
             return characteristic.readValue();
         })
         .then(value => {
             let batteryLevel = value.getUint8(0);
-            document.getElementById('targetB').innerHTML = '> Battery Level is ' + batteryLevel + '%';
+            document.getElementById('targetB').innerHTML += '> Battery Level is ' + batteryLevel + '%';
         })
         .catch(error => {
             document.getElementById('targetB').innerHTML = 'Argh! ' + error;
