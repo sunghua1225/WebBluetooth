@@ -1,27 +1,3 @@
-// document.getElementById('connect').onclick = function (event) {
-//      if (navigator.bluetooth) {
-//         talkToNRF();
-//     } else {
-//         alert('WebBluetooth not supported.');
-//     }
-// };
-
-document.getElementById('connect').onclick = function (event) {
-    //talkToNRF();
-    checkCharacteristic();
-};
-/*
-navigator.usb.addEventListener('connect', event => {
-    // Add |event.device| to the UI.
-    document.getElementById('targetA').innerHTML = 'Device added: ' + event.device.name;
-});
-
-navigator.usb.addEventListener('disconnect', event => {
-    // Remove |event.device| from the UI.
-    document.getElementById('targetA').innerHTML = 'Device removed: ' + event.device.name;
-});
-*/
-
 async function talkToNRF() {
     try {
         //let options = {
@@ -58,7 +34,7 @@ async function talkToNRF() {
     }
 }
 
-function checkCharacteristic() {
+async function connectDevice() {
         let options = {
           filters: [
             {services: [0xF00D]},
