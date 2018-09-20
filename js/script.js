@@ -72,7 +72,8 @@ async function connectDevice() {
             document.getElementById('targetB').innerHTML = txt;
         })
         .catch(error => {
-            document.getElementById('targetB').innerHTML = 'Argh! ' + error;
+            txt += 'Argh! ' + error
+            document.getElementById('targetB').innerHTML = txt;
         }
     );
 }
