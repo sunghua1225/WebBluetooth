@@ -42,26 +42,34 @@ async function connectDevice() {
           ]
          }
         
+        let txt = 'connectDevice entered\n';
+        document.getElementById('targetB').innerHTML = txt;
+    
         navigator.bluetooth.requestDevice(options)
         .then(device => {
-            document.getElementById('targetB').innerHTML = 'Connecting to GATT Server...';
+            txt += 'Connecting to GATT Server...\n';
+            document.getElementById('targetB').innerHTML = txt;
             return device.gatt.connect();
         })
         .then(server => {
-            document.getElementById('targetB').innerHTML += 'Getting Battery Service...';
+            txt += 'Getting Battery Service...\n';
+            document.getElementById('targetB').innerHTML = txt;
             return server.getPrimaryService('battery_service');
         })
         .then(service => {
-            document.getElementById('targetB').innerHTML += 'Getting Battery Level Characteristic...';
+            txt += 'Getting Battery Level Characteristic...\n';
+            document.getElementById('targetB').innerHTML = txt;
             return service.getCharacteristic('battery_level');
         })
         .then(characteristic => {
-            document.getElementById('targetB').innerHTML += 'Reading Battery Level...';
+            txt += 'Reading Battery Level...\n';
+            document.getElementById('targetB').innerHTML = txt;
             return characteristic.readValue();
         })
         .then(value => {
             let batteryLevel = value.getUint8(0);
-            document.getElementById('targetB').innerHTML += '> Battery Level is ' + batteryLevel + '%';
+            txt += '> Battery Level is ' + batteryLevel + '%\n';
+            document.getElementById('targetB').innerHTML = txt;
         })
         .catch(error => {
             document.getElementById('targetB').innerHTML = 'Argh! ' + error;
