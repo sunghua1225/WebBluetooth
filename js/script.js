@@ -35,48 +35,19 @@ async function talkToNRF() {
 }
 
 async function connectDevice() {
-        let options = {
-            acceptAllDevices: true,
-           optionalServices: ['battery_service']
-//           filters: [
-//             {services: [0xF00D]},
-//             {name: 'OurCharacteristic'}
-//           ]
-         }
+     navigator.bluetooth.requestDevice({ filters: [{ services: ['Pay controller'] }] })
+    .then(device => device.gatt.connect())
+    .then(server => server.getPrimaryService('Pay controller'))
+    .then(service => service.getCharacteristic('Pay controller'))
+    .then(characteristic => {
+      // Writing 1 is the signal to reset energy expended.
+      const resetEnergyExpended = Uint8Array.of(1);
+      return characteristic.writeValue(resetEnergyExpended);
+    })
+    .then(_ => {
+      console.log('Energy expended has been reset.');
+    })
+    .catch(error => { console.error(error); });
         
-        let txt = 'connectDevice entered\n';
-        document.getElementById('targetB').innerHTML = txt;
-    
-        navigator.bluetooth.requestDevice(options)
-        .then(device => {
-            txt += 'Connecting to GATT Server...\n';
-            document.getElementById('targetB').innerHTML = txt;
-            return device.gatt.connect();
-        })
-        .then(server => {
-            txt += 'Getting Battery Service...\n';
-            document.getElementById('targetB').innerHTML = txt;
-            return server.getPrimaryService('battery_service');
-        })
-        .then(service => {
-            txt += 'Getting Battery Level Characteristic...\n';
-            document.getElementById('targetB').innerHTML = txt;
-            return service.getCharacteristic('battery_level');
-        })
-        .then(characteristic => {
-            txt += 'Reading Battery Level...\n';
-            document.getElementById('targetB').innerHTML = txt;
-            return characteristic.readValue();
-        })
-        .then(value => {
-            let batteryLevel = value.getUint8(0);
-            txt += '> Battery Level is ' + batteryLevel + '%\n';
-            document.getElementById('targetB').innerHTML = txt;
-        })
-        .catch(error => {
-            txt += 'Argh! ' + error
-            document.getElementById('targetB').innerHTML = txt;
-        }
-    );
 }
 
