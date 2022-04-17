@@ -36,10 +36,12 @@ async function talkToNRF() {
 
 async function connectDevice() {
         let options = {
-          filters: [
-            {services: [0xF00D]},
-            {name: 'OurCharacteristic'}
-          ]
+            acceptAllDevices: true,
+           optionalServices: ['battery_service']
+//           filters: [
+//             {services: [0xF00D]},
+//             {name: 'OurCharacteristic'}
+//           ]
          }
         
         let txt = 'connectDevice entered\n';
