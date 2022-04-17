@@ -13,7 +13,7 @@ async function talkToNRF() {
         //}
         let options = {
           filters: [
-            {services: [0x1801]},
+            {services: [0x2902]},
             {name: 'Pay controller'}
           ]
          }
