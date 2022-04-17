@@ -36,8 +36,9 @@ async function talkToNRF() {
 
 async function connectDevice() {
     navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,
-      optionalServices: ['Pay controller'] // Required to access service later.
+      filters: [{
+        services: [0x1801, '00002A05-0000-1000-8000-00805F9B34FB']
+      }]
     })
     .then(device => { /* … */ })
     .catch(error => { console.error(error); });
