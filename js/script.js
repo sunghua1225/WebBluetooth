@@ -35,18 +35,11 @@ async function talkToNRF() {
 }
 
 async function connectDevice() {
-     navigator.bluetooth.requestDevice({ filters: [{ services: ['Pay controller'] }] })
-    .then(device => device.gatt.connect())
-    .then(server => server.getPrimaryService('Pay controller'))
-    .then(service => service.getCharacteristic('Pay controller'))
-    .then(characteristic => {
-      // Writing 1 is the signal to reset energy expended.
-      const resetEnergyExpended = Uint8Array.of(1);
-      return characteristic.writeValue(resetEnergyExpended);
+    navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,
+      optionalServices: ['Pay controller'] // Required to access service later.
     })
-    .then(_ => {
-      console.log('Energy expended has been reset.');
-    })
+    .then(device => { /* … */ })
     .catch(error => { console.error(error); });
         
 }
