@@ -18,14 +18,14 @@ async function talkToNRF() {
           ]
          }
         
-        //navigator.bluetooth.requestDevice({
-        //    acceptAllDevices: true,
-        //    optionalServices: ['battery_service']
-        //})
-        navigator.bluetooth.requestDevice(options)
-        .then(device => {
-            document.getElementById('targetA').innerHTML = 'Received: ' + device.name;
+        navigator.bluetooth.requestDevice({
+           acceptAllDevices: true,
+           optionalServices: ['battery_service']
         })
+//         navigator.bluetooth.requestDevice(options)
+//         .then(device => {
+//             document.getElementById('targetA').innerHTML = 'Received: ' + device.name;
+//         })
         .catch(error => {
             document.getElementById('targetB').innerHTML = "Error: " + error;
         });
