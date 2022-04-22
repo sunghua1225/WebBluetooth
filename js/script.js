@@ -10,17 +10,7 @@ async function connectDevice() {
       optionalServices: ['Pay controller'] // Required to access service later.
     })
     .then( //device => {
-          fetch("https://gateway.biandianxia.com", {
-            method: "POST", 
-            body: JSON.stringify({
-                      UUID: '003C120K0fEQDRR01',
-                      device_id: '52312',
-                      charge_id: dateNow,
-                      minute: '1'
-            })
-          }).then(res => {
-            characteristic.writeValue(res);
-          });
+          
     //}
          )
     .catch(error => { console.error(error); });
