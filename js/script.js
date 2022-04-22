@@ -1,7 +1,7 @@
 
 async function connectDevice() {
     
-    let dateNow=Date.now();
+    //let dateNow=Date.now();
     
     navigator.bluetooth.requestDevice({
       filters: [{
@@ -9,9 +9,9 @@ async function connectDevice() {
       }],
       optionalServices: ['Pay controller'] // Required to access service later.
     })
-    .then( //device => {
+    .then( device => {
           
-    //}
+    }
          )
     .catch(error => { console.error(error); });
           
