@@ -1,7 +1,6 @@
+let button = document.getElementById("connect");
 
-async function connectDevice() {
-    
-    
+button.addEventListener("click", async () => { 
     navigator.bluetooth.requestDevice({
 //       filters: [{
 //         name: 'Pay'
@@ -11,6 +10,5 @@ async function connectDevice() {
     })
     .then(device => { /* … */ })
     .catch(error => { console.error(error); });
-          
-     
-}
+  });
+
